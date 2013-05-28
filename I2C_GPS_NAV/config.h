@@ -19,11 +19,11 @@
  *
  */
 
-#define NMEA
-//#define UBLOX
+//#define NMEA
+#define UBLOX
 //#define MTK_BINARY16
 //#define MTK_BINARY19
-#define INIT_MTK_GPS
+//#define INIT_MTK_GPS
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@
 // Ping/Pong type sonar modules such as HC-SR04, SRF-04, DYP-ME007 and many others...
 // PWM output continous sonars such as the MAXBOTIX series (connect pin2(PWM out) of the sonar to PC2
 
-#define SONAR						// USE Sonar
+//#define SONAR						// USE Sonar
 
 //Sonar type uncomment only one at a time
 //#define PINGPONG
@@ -50,6 +50,13 @@
 // Open GPS.ino in MultiWii, remove the " / 100" division 2 lines after "varptr = (uint8_t *)&GPS_distanceToHome;", recompile and upload to your board
 //#define DISTANCE_TO_HOME_IN_METERS // WARNING! IF YOU DEFINE THIS YOU MUST MODIFY MULTIWII SOURCE!!!
 
+// FrSky Telemetry
+//////////////////////////////////////////////////////////////////////////////
+// If you want to use i2c-gps as a GPS beacon, or don't have FrSky telemetry in your FC, you can send Telemetry data to FrSky from i2c-gps
+//#define TELEMETRY_FRSKY
+#define TELEMETRY_FRSKY_SOFTSERIAL_PIN 4  // connect FrSky Receiver's Rx sideport to Arduino's D4 (Digital pin 4) without a ttl inverter. Or change the port here.
+#define TELEMETRY_FRSKY_OPENTX // define if using OpenTx. Use special OpenTx calculations for GPS speed. Comment out for FrSky Telemetry Display
+#define TELEMETRY_FRSKY_SPEED 9600 // 9600 for default FrSky
 
 // Default PID variables
 //////////////////////////////////////////////////////////////////////////////

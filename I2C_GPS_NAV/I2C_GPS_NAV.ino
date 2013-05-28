@@ -1406,6 +1406,10 @@ void setup() {
   Sonar_init();
 #endif
 
+#if defined(TELEMETRY_FRSKY)
+  init_telemetry();
+#endif
+
   //Init GPS
   GPS_SerialInit();
   
@@ -1594,7 +1598,9 @@ void loop() {
 #pragma endregion
 
 blink_sonar_update();   
-
+#if defined(TELEMETRY_FRSKY)
+  telemetry_frsky();
+#endif
 
 //check watchdog timer, after 1200ms without valid packet, assume that gps communication is lost.
 if (_watchdog_timer != 0)
