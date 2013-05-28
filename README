@@ -1,0 +1,7 @@
+This is a fork of eosbandi's i2c-gps-nav, which can be accessed at https://code.google.com/p/i2c-gps-nav
+
+New Features:
+* For I2C-GPS, send distance-to-home in meter units. (You need to modify MultiWii for this to work)
+* Send GPS info as FrSky telemetry data, so that the i2c-gps board can be used as a standalone GPS-beacon (together with a GPS and a FrSky Telemetry receiver of course)
+
+See config.h for details on how to configure the new features.
