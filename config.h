@@ -40,6 +40,16 @@
 #define MAXBOTIX_PWM				// PWM output mode sonar
 
 
+// Send distance to home in meters
+//////////////////////////////////////////////////////////////////////////////
+// home_distance variable in i2c-gps protocol is 16 bit, so can take values from 0 to only up to 65535.
+// Unit of measurement is centimeters, so only a home distance of 655 meters (=65535 centimeters) is possible. After that RTH will have problems.
+// This modification extends maximum home distance to 65 kilometers by changing the unit of measurement to meters.
+
+// WARNING: you need to modify MultiWii for this to be meaningful, mismatched MultiWii-units and i2c-gps units *WILL* break your RTH.
+// Open GPS.ino in MultiWii, remove the " / 100" division 2 lines after "varptr = (uint8_t *)&GPS_distanceToHome;", recompile and upload to your board
+//#define DISTANCE_TO_HOME_IN_METERS // WARNING! IF YOU DEFINE THIS YOU MUST MODIFY MULTIWII SOURCE!!!
+
 
 // Default PID variables
 //////////////////////////////////////////////////////////////////////////////

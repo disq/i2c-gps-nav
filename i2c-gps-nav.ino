@@ -127,7 +127,7 @@ typedef struct {
   int16_t               wp_target_bearing;        // direction to active coordinates (calculated)   1deg = 10 / -1800 - 1800
   int16_t               nav_bearing;              // crosstrack corrected navigational bearing 1deg = 10
   int16_t               home_to_copter_bearing;   // 1deg = 10
-  uint16_t              distance_to_home;         // distance to home in cm
+  uint16_t              distance_to_home;         // distance to home in cm by default, or meters depending on if DISTANCE_TO_HOME_IN_METERS is set
   uint16_t              ground_speed;             // ground speed from gps m/s*100
   int16_t               altitude;                 // gps altitude
   uint16_t	        ground_course;	          // GPS ground course
@@ -1532,7 +1532,12 @@ void loop() {
          _watchdog_timer = millis();  //Reset watchdog timer
           
          //calculate distance and bearings for gui and other stuff continously this is independent from navigation
-         i2c_dataset.distance_to_home = GPS_distance_cm(GPS_latitude,GPS_longitude,i2c_dataset.gps_wp[0].position.lat,i2c_dataset.gps_wp[0].position.lon);
+         uint32_t temp_distance = GPS_distance_cm(GPS_latitude,GPS_longitude,i2c_dataset.gps_wp[0].position.lat,i2c_dataset.gps_wp[0].position.lon);
+#if defined(DISTANCE_TO_HOME_IN_METERS)
+         i2c_dataset.distance_to_home = temp_distance / 100; // convert cm to meters
+#else
+         i2c_dataset.distance_to_home = temp_distance;
+#endif
          i2c_dataset.home_to_copter_bearing = GPS_bearing(i2c_dataset.gps_wp[0].position.lat,i2c_dataset.gps_wp[0].position.lon,GPS_latitude,GPS_longitude);
          //calculate the current velocity based on gps coordinates continously to get a valid speed at the moment when we start navigating
          GPS_calc_velocity(GPS_latitude,GPS_longitude);        
